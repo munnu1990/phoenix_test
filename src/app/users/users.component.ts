@@ -14,7 +14,7 @@ export class UsersComponent implements OnInit {
   selectedUser: any = null;
 
   constructor(private users: UsersService) {}
-
+// Getting the data form json
   ngOnInit(): void {
     this.users.getData().subscribe((response) => {
       this.data = response.data.members;
