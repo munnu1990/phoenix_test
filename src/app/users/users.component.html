@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col-md-12">
+      <ul class="list-unstyled">
+
+        @for (userData of data; track $index) {
+            <li >
+                <p>
+                  Name: <strong>{{ userData.user.firstName }} {{ userData.user.lastName }}</strong>
+                </p>
+                <p>Email: <strong>{{ userData.user.email }}</strong></p>
+                <a
+                  href="#"
+                  class="btn btn-primary float-right"
+                  (click)="openPopUp(userData.user)"
+                  data-bs-toggle="modal"
+                  [attr.data-bs-target]="'#modal-' + userData.user.userId"
+                >
+                  Update
+                </a>
+              </li>
+        }
+      </ul>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    [id]="'modal-' + selectedUser?.userId"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit User Details</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input
+                type="text"
+                id="firstName"
+                class="form-control"
+                [(ngModel)]="selectedUser.firstName"
+                name="firstName"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input
+                type="text"
+                id="lastName"
+                class="form-control"
+                [(ngModel)]="selectedUser.lastName"
+                name="lastName"
+              />
+            </div>
+            <p><strong>Email:</strong> {{ selectedUser?.email }}</p>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary" (click)="saveChanges()">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
